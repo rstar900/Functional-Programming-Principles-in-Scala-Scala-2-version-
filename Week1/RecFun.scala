@@ -48,5 +48,19 @@ object RecFun extends RecFunInterface {
   /**
    * Exercise 3
    */
-  def countChange(money: Int, coins: List[Int]): Int = ???
+  def countChange(money: Int, coins: List[Int]): Int = {
+    def countChangeHelper(sum: Int, coins: List[Int]): Int =
+      // Base case 1 (Nothing to choose from or we exceeded the amount)
+      if (coins.isEmpty || sum > money)
+        0 
+      // Base case 2 (Sum is exactly the same as the amount)  
+      else if (sum == money)
+        1
+      // Recursive case (total combinations by choosing the coin or not choosing it)
+      else
+        countChangeHelper(sum + coins.head, coins) + countChangeHelper(sum, coins.tail)
+
+    // Function application
+    if (money > 0) countChangeHelper(0, coins) else 0
+  }
 }
